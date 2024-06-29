@@ -1,0 +1,95 @@
+@use '../../../styles/variables.scss';
+@use '../../../styles/utils.scss';
+
+.eventListItem {
+  display: flex;
+  align-items: flex-start;
+  flex-flow: column;
+  padding: 10px;
+  background-color: variables.$white;
+  border-radius: 6px;
+  cursor: pointer;
+  border-left: 1px solid variables.$grey;
+  position: relative;
+
+  &.selected {
+    border-left: 3px solid variables.$very-dark-blue;
+    -webkit-box-shadow: 2px 5px 11px -1px variables.$dark-grey;
+    -moz-box-shadow: 2px 5px 11px -1px variables.$dark-grey;
+    box-shadow: 2px 5px 11px -1px variables.$dark-grey;
+  }
+
+  h4 {
+    @include utils.text-multi-line-ellipsis(1);
+  }
+
+  &:hover {
+    -webkit-box-shadow: 0px 3px 8px -1px variables.$dark-grey;
+    -moz-box-shadow: 0px 3px 8px -1px variables.$dark-grey;
+    box-shadow: 0px 3px 8px -1px variables.$dark-grey;
+  }
+
+  .description {
+    font-size: 14px;
+    margin: 5px 0;
+    text-align: justify;
+    line-height: 18px;
+    @include utils.text-multi-line-ellipsis(4);
+    color: variables.$dark-grey;
+  }
+
+  .eventTimeAndPlace {
+    width: 100%;
+    text-align: left;
+
+    p {
+      font-size: 14px;
+      span {
+        font-size: 12px;
+        color: variables.$grey;
+      }
+    }
+  }
+
+  .eventContextMenu {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+
+    ul {
+      gap: 0;
+      -webkit-box-shadow: 0px 3px 8px -1px variables.$dark-grey;
+      -moz-box-shadow: 0px 3px 8px -1px variables.$dark-grey;
+      box-shadow: 0px 3px 8px -1px variables.$dark-grey;
+
+      li {
+        font-size: 13px;
+      }
+    }
+  }
+
+  .btnJoinEvent {
+    color: variables.$very-dark-blue;
+    border: none;
+    background-color: transparent;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 6px;
+
+    &.join {
+      color: variables.$valid;
+    }
+
+    &.leave {
+      color: variables.$red;
+    }
+
+    &:hover {
+      outline: 1px variables.$light-grey solid;
+      background-color: variables.$light-grey;
+    }
+  }
+}

@@ -1,0 +1,87 @@
+@use '../../../styles/variables.scss';
+
+.loginContainer {
+  border-radius: 6px;
+  width: 500px;
+  padding: 25px 50px;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  margin: auto;
+  transition: background-image linear 0.5s, background-color linear 0.5s;
+  color: variables.$midnight;
+  background-color: variables.$very-light-grey;
+
+  h2 {
+    text-transform: uppercase;
+    font-family: variables.$font-family-bold;
+    color: variables.$very-dark-blue;
+  }
+
+  .signResponseMessage {
+    min-height: 45px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    > p {
+      line-height: normal;
+      text-align: left;
+      font-size: 14px;
+      display: inline-flex;
+      gap: 10px;
+      text-align: justify;
+      border-radius: 6px;
+      padding: 3px 5px;
+      font-weight: 700;
+
+      &.success {
+        color: variables.$valid;
+      }
+
+      &.error {
+        color: variables.$red;
+      }
+    }
+  }
+
+  form {
+    width: 100%;
+
+    button[type='submit'] {
+      display: block;
+      margin-left: auto;
+    }
+  }
+  .formChangeBox {
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+    font-size: 12px;
+
+    .formChangeBtn {
+      margin-top: 5px;
+      align-self: flex-end;
+      color: inherit;
+      padding: 0;
+      font-size: 13px;
+      font-weight: 700;
+      border: none;
+      background-color: transparent;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+  }
+}

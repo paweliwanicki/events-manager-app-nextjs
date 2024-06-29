@@ -1,0 +1,36 @@
+@use "../../styles/variables.scss";
+
+.eventsNavigation {
+  width: 100%;
+  height: 60px;
+  color: variables.$white;
+  background-color: variables.$light-blue;
+  display: flex;
+  align-items: center;
+  padding-inline: 40px;
+  gap: 10px;
+
+  menu {
+    padding-left: 0;
+    max-width: 1200px;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    li {
+      cursor: pointer;
+
+      &.active {
+        font-weight: 700;
+        color: variables.$very-light-violet;
+      }
+
+      &:hover {
+        color: variables.$light-grey;
+      }
+    }
+  }
+
+  button {
+    margin-left: auto;
+  }
+}

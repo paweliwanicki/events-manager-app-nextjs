@@ -1,0 +1,26 @@
+@use '../../../styles/variables.scss';
+
+.removeEventModal {
+  text-align: left;
+  display: flex;
+  flex-flow: column;
+
+  h3 {
+    text-transform: none;
+  }
+
+  .eventDetailsBox {
+    display: flex;
+    flex-flow: column;
+    gap: 15px;
+    .description {
+      text-align: justify;
+    }
+  }
+
+  .buttonsBox {
+    display: inline-flex;
+    margin-left: auto;
+    gap: 15px;
+  }
+}

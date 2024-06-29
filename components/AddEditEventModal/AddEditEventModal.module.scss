@@ -1,0 +1,36 @@
+@use '../../styles/variables.scss';
+
+.newEventModal {
+  form {
+    display: flex;
+    flex-flow: column;
+  }
+
+  .labelText {
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eventLocationBox {
+    width: 100%;
+  }
+
+  .eventAccesibility {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 25px;
+  }
+
+  .buttonsBox {
+    display: inline-flex;
+    margin-left: auto;
+    gap: 15px;
+  }
+  .required {
+    color: variables.$red;
+  }
+}

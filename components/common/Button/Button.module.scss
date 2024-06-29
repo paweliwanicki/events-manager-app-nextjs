@@ -1,0 +1,44 @@
+@use '../../../styles/variables.scss';
+
+button.button {
+  transition: background-color 0.5s;
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px 20px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:active {
+    outline: none;
+    border: none;
+  }
+
+  &:focus-visible,
+  &:focus {
+    outline: none;
+  }
+
+  &.primary {
+    background-color: variables.$dark-blue;
+
+    &:hover {
+      background-color: variables.$very-dark-blue;
+    }
+  }
+
+  &.secondary {
+    background-color: variables.$dark-grey;
+    color: variables.$white;
+
+    &:hover {
+      background-color: variables.$grey;
+    }
+  }
+
+  &.link {
+    padding: 20px 16px;
+  }
+}

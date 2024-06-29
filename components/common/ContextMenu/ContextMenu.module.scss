@@ -1,0 +1,63 @@
+@use "../../../styles/variables.scss";
+
+.contextMenuBox {
+  position: relative;
+
+  button {
+    outline: none;
+    border: none;
+    background-color: transparent;
+  }
+
+  .optionsList {
+    border-radius: 6px;
+    height: 0;
+    box-sizing: border-box;
+    position: absolute;
+    right: 0px;
+    padding-left: 0;
+    z-index: 999;
+    height: fit-content;
+    background-color: variables.$white;
+
+    &.open {
+      outline: 1px solid variables.$light-grey;
+    }
+
+    .option {
+      margin: 0 10px;
+      opacity: 0;
+      height: 0;
+      text-decoration: none;
+      list-style: none;
+      line-height: 24px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 -1px 0 #000;
+      white-space: nowrap;
+      color: variables.$midnight;
+
+      &:first-child {
+        box-shadow: none;
+      }
+
+      &:hover {
+        color: variables.$dark-blue;
+        text-shadow: 0px 0px 1px variables.$dark-blue;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    }
+  }
+}
+
+.overlay {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}

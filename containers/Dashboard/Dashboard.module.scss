@@ -1,0 +1,25 @@
+@use '../../styles/variables.scss';
+
+.dashboard {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+  flex-grow: 1;
+
+  .content {
+    display: inline-flex;
+    flex-grow: 1;
+
+    .mapContainer {
+      flex-grow: 1;
+      height: 100%;
+
+      .markerMapPopup {
+        p {
+          margin: 5px;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+@use '../../styles/variables.scss';
+
+.signUpForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  opacity: 0;
+
+  .required {
+    color: variables.$red;
+  }
+
+  > h2 {
+    margin-block-end: 25px;
+    font-weight: 700;
+  }
+
+  > h4 {
+    text-align: justify;
+    margin-block-end: 15px;
+  }
+
+  .termsBox {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    align-self: flex-start;
+    gap: 15px;
+    margin-bottom: 20px;
+    margin-top: 15px;
+
+    > p {
+      text-align: justify;
+      font-size: 14px;
+      line-height: normal;
+      > span:not(.required) {
+        color: variables.$orange;
+        font-weight: 700;
+        cursor: pointer;
+      }
+    }
+  }
+
+  > button {
+    align-self: flex-end;
+  }
+}

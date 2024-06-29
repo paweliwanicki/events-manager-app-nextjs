@@ -1,0 +1,35 @@
+// media query breakpoints
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == bp-very-small {
+    @media only screen and (max-width: 30.75em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == bp-small {
+    @media only screen and (max-width: 48.05em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == bp-medium {
+    @media only screen and (max-width: 62.5em) {
+      @content;
+    }
+  }
+
+  @if $breakpoint == bp-large {
+    @media only screen and (max-width: 80.5em) {
+      @content;
+    }
+  }
+}
+
+@mixin text-multi-line-ellipsis($lines-to-show) {
+  display: block;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines-to-show;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

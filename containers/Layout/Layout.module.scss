@@ -1,0 +1,19 @@
+@use '../../styles/utils.scss';
+@use '../../styles/variables.scss';
+
+.layout {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  transition: background-color linear 0.5s;
+
+  main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    flex-grow: 1;
+    flex-flow: column;
+    background-color: variables.$dark-blue;
+  }
+}

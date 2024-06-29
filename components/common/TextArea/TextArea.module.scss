@@ -1,0 +1,82 @@
+@use '../../../styles/variables.scss';
+
+.textAreaLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+
+  > .labelText {
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .validationText {
+    margin: 0;
+    padding-top: 3px;
+    height: 30px;
+
+    &.error {
+      color: variables.$red;
+    }
+
+    &.valid {
+      color: variables.$valid;
+    }
+  }
+
+  .textAreaBox {
+    width: 100%;
+    display: inline-flex;
+    border-radius: 6px;
+    background: variables.$white;
+    color: variables.$very-dark-blue;
+
+    &.error {
+      outline: 1px solid variables.$red;
+      -webkit-box-shadow: 0px 0px 10px 0px variables.$red;
+      -moz-box-shadow: 0px 0px 10px 0px variables.$red;
+      box-shadow: 0px 0px 10px 0px variables.$red;
+    }
+
+    &.valid {
+      outline: 1px solid variables.$valid;
+      -webkit-box-shadow: 0px 0px 15px 0px variables.$valid;
+      -moz-box-shadow: 0px 0px 15px 0px variables.$valid;
+      box-shadow: 0px 0px 15px 0px variables.$valid;
+    }
+
+    > textarea {
+      padding: 5px 20px;
+      // padding-left: 20px;
+      // padding-right: 5px;
+      border-top-left-radius: inherit;
+      border-bottom-left-radius: inherit;
+      border: none;
+      outline: none;
+      flex-grow: 1;
+      border-radius: inherit;
+      flex-shrink: 0;
+      background: variables.$white;
+      color: variables.$very-dark-blue;
+      font-size: 16px;
+      font-family: 'Arial', 'sans-serif';
+
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover,
+      &:-webkit-autofill:focus {
+        border: inherit;
+        -webkit-box-shadow: 0 0 0px 40px variables.$white inset !important;
+        -webkit-text-fill-color: variables.$very-dark-blue !important;
+      }
+
+      &::placeholder {
+        opacity: 0.5;
+        font-weight: 400;
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+@use '../../styles/utils.scss';
+@use '../../styles/variables.scss';
+
+.navBar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  padding-inline: 40px;
+  background-color: variables.$very-dark-blue;
+  color: variables.$white;
+
+  .content {
+    max-width: 1920px;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      height: 60px;
+      width: auto;
+      margin-top: 10px;
+    }
+
+    .userMenu {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+
+      .userContextMenu {
+        cursor: pointer;
+        height: 48px;
+      }
+    }
+  }
+}

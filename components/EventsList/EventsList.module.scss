@@ -1,0 +1,19 @@
+@use '../../styles/variables.scss';
+@use '../../styles/utils.scss';
+
+.eventsListContainer {
+  color: variables.$very-dark-blue;
+  flex-basis: 350px;
+  height: calc(100vh - 140px);
+  background-color: variables.$very-light-grey;
+
+  ul.eventsList {
+    padding: 10px;
+    list-style-type: none;
+    display: flex;
+    flex-flow: column;
+    gap: 10px;
+    height: 100%;
+    overflow-y: auto;
+  }
+}

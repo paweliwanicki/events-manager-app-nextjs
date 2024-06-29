@@ -1,0 +1,96 @@
+@use '../../styles/variables.scss';
+
+.friendsPanel {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  width: 100%;
+  flex-grow: 1;
+  background-color: variables.$light-white;
+  padding: 25px;
+  color: variables.$very-dark-blue;
+
+  h2 {
+    display: inline-flex;
+    align-items: center;
+    text-align: left;
+    margin-bottom: 30px;
+    gap: 15px;
+  }
+
+  .addFriendBox {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    margin-bottom: 30px;
+    font-weight: 700;
+    padding-bottom: 30px;
+    border-bottom: 3px solid variables.$light-grey;
+
+    h4 {
+      display: inline-flex;
+      align-items: center;
+      gap: 15px;
+
+      img {
+        height: 32px;
+        width: auto;
+      }
+    }
+  }
+
+  .friendsList,
+  .friendsRequestsList {
+    text-align: left;
+    margin-bottom: 35px;
+    h3 {
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+
+      img {
+        height: 30px;
+        width: auto;
+      }
+    }
+  }
+}
+
+// styles for react select
+:global {
+  #friends-select {
+    height: 44px;
+    width: 50%;
+    max-width: 400px;
+    .css-1fdsijx-ValueContainer,
+    .css-art2ul-ValueContainer2 {
+      padding-left: 15px;
+
+      .css-1dimb5e-singleValue {
+        color: variables.$dark-grey;
+      }
+    }
+
+    .css-t3ipsp-control {
+      box-shadow: none;
+    }
+
+    .css-13cymwt-control,
+    .css-t3ipsp-control {
+      border: 2px solid;
+      height: 100%;
+      border-radius: 6px;
+      border-color: variables.$light-grey;
+
+      .css-1jqq78o-placeholder {
+        opacity: 0.5;
+      }
+    }
+    .css-1nmdiq5-menu {
+      z-index: 10;
+      color: variables.$very-dark-blue;
+    }
+  }
+}

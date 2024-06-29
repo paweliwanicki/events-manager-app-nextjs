@@ -1,0 +1,116 @@
+@use '../../../styles/variables.scss';
+
+.inputLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+
+  > .labelText {
+    margin-bottom: 3px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .validationText {
+    margin: 0;
+    padding-top: 3px;
+    height: 30px;
+
+    &.error {
+      color: variables.$red;
+    }
+
+    &.valid {
+      color: variables.$valid;
+    }
+  }
+
+  .inputBox {
+    width: 100%;
+    display: inline-flex;
+    border-radius: 6px;
+    background: variables.$white;
+    color: variables.$very-dark-blue;
+    outline: 2px solid variables.$light-grey;
+
+    input {
+      border: none;
+      &::placeholder {
+        opacity: 0.5;
+        font-weight: 400;
+      }
+    }
+
+    &.small {
+      input {
+        height: 40px;
+        font-size: 14px;
+      }
+    }
+    &.medium {
+      input {
+        height: 60px;
+        font-size: 16px;
+      }
+    }
+    &.large {
+      input {
+        height: 80px;
+        font-size: 18px;
+      }
+    }
+
+    :global {
+      .react-datepicker-wrapper {
+        background-color: variables.$white;
+        width: 100%;
+        border-radius: 6px;
+        border: none;
+
+        .react-datepicker__input-container {
+          display: flex;
+          align-items: center;
+          padding-left: 15px;
+          input {
+            width: 100%;
+            border-radius: 6px;
+            background-color: variables.$white;
+            color: variables.$very-dark-blue;
+
+            &:focus-visible {
+              outline: none;
+            }
+          }
+
+          svg {
+            fill: #6e8098;
+          }
+
+          .react-datepicker__close-icon {
+            padding-right: 15px;
+            &::after {
+              background-color: #6e8098;
+            }
+          }
+        }
+      }
+    }
+
+    &.error {
+      outline: 1px solid variables.$red;
+      -webkit-box-shadow: 0px 0px 10px 0px variables.$red;
+      -moz-box-shadow: 0px 0px 10px 0px variables.$red;
+      box-shadow: 0px 0px 10px 0px variables.$red;
+    }
+
+    &.valid {
+      outline: 1px solid variables.$valid;
+      -webkit-box-shadow: 0px 0px 15px 0px variables.$valid;
+      -moz-box-shadow: 0px 0px 15px 0px variables.$valid;
+      box-shadow: 0px 0px 15px 0px variables.$valid;
+    }
+  }
+}

@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+<clipPath id="cp">
+  <path d="M0 -40 A40 40 0 0 1 0 40 A40 40 0 0 1 0 -40 M20 -1L20 1L28 1L28 -1Z"></path>
+</clipPath>
+<g transform="translate(50,50)">
+<circle clip-path="url(#cp)" cx="0" cy="0" fill="none" r="23" stroke="#939bf4" stroke-width="6" stroke-dasharray="36.12831551628262 0 0 0 0 144.51326206513048">
+<animate attributeName="stroke-dasharray" dur="2.272727272727273s" repeatCount="indefinite" begin="-0.2272727272727273s" keyTimes="0;0.2;0.4;0.6;0.8;1" values="
+0 0 0 0 0 144.51326206513048;
+0 0 0 0 0 144.51326206513048;
+0 0 72.25663103256524 0 0 144.51326206513048;
+0 0 144.51326206513048 0 0 144.51326206513048;
+0 0 72.25663103256524 0 0 144.51326206513048;
+0 0 0 0 0 144.51326206513048
+"></animate>
+<animateTransform attributeName="transform" type="rotate" dur="2.272727272727273s" repeatCount="indefinite" begin="-0.2272727272727273s" values="0;0;0;0;180;360"></animateTransform>
+</circle>
+
+<circle cx="0" cy="0" fill="none" r="30" stroke="#5964e0" stroke-width="6" stroke-dasharray="94.24777960769379 0 0 188.49555921538757">
+<animate attributeName="stroke-dasharray" dur="2.272727272727273s" repeatCount="indefinite" begin="0s" values="
+0 0 0 0 0 188.49555921538757;
+0 0 94.24777960769379 0 0 188.49555921538757;
+0 0 94.24777960769379 0 0 188.49555921538757;
+0 0 94.24777960769379 0 0 188.49555921538757;
+0 0 94.24777960769379 0 0 188.49555921538757;
+0 0 0 0 0 188.49555921538757
+"></animate>
+<animateTransform attributeName="transform" type="rotate" dur="2.272727272727273s" repeatCount="indefinite" begin="0s" values="0;0;0;180;180;360"></animateTransform>
+</circle>
+
+<circle cx="0" cy="0" fill="none" r="37" stroke="#303642" stroke-width="6" stroke-dasharray="116.23892818282235 0 0 232.4778563656447" transform="rotate(45)">
+<animate attributeName="stroke-dasharray" dur="2.272727272727273s" repeatCount="indefinite" begin="0s" keyTimes="0;0.06;0.1;0.3;0.45;0.5;0.7;0.90;1" values="
+0 0 87.17919613711676 0 0 232.4778563656447;
+0 0 87.17919613711676 0 0 232.4778563656447;
+0 0 116.23892818282235 0 0 232.4778563656447;
+0 0 116.23892818282235 0 0 232.4778563656447;
+0 0 29.059732045705587 0 0 232.4778563656447;
+0 0 29.059732045705587 0 0 232.4778563656447;
+0 0 116.23892818282235 0 0 232.4778563656447;
+0 0 116.23892818282235 0 0 232.4778563656447;
+0 0 87.17919613711676 0 0 232.4778563656447
+"></animate>
+<animateTransform attributeName="transform" type="rotate" dur="2.272727272727273s" repeatCount="indefinite" begin="0s" keyTimes="0;0.06;0.1;0.3;0.5;0.6;0.8;0.90;1" values="-60;0;0;0;180;180;180;180;300"></animateTransform>
+</circle>
+</g>
+</svg>
