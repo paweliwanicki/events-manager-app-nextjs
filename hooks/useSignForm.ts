@@ -53,20 +53,20 @@ type SignForm = {
   clearValidationAndError: (input: SignFormInput) => void;
   validateSignInForm: (email: string, password: string) => boolean;
   validateSignUpForm: (
-    firstName: string,
-    lastName: string,
+    first_name: string,
+    last_name: string,
     email: string,
-    dateOfBirth: Date | undefined,
+    date_of_birth: Date | undefined,
     password: string,
     confirmPassword: string,
     termsChecked: boolean
   ) => boolean;
   handleSignIn: (email: string, password: string) => Promise<void>;
   handleSignUp: (
-    firstName: string,
-    lastName: string,
+    first_name: string,
+    last_name: string,
     email: string,
-    dateOfBirth: Date,
+    date_of_birth: Date,
     password: string,
     confirmPassword: string
   ) => Promise<boolean>;
@@ -162,23 +162,23 @@ export const useSignForm = (): SignForm => {
 
   const handleSignUp = useCallback(
     async (
-      firstName: string,
-      lastName: string,
+      first_name: string,
+      last_name: string,
       email: string,
-      dateOfBirth: Date,
+      date_of_birth: Date,
       password: string,
       confirmPassword: string
     ) => {
-      const dateOfBirthTimestamp = dateOfBirth
-        ? Math.floor(dateOfBirth.getTime() / 1000)
+      const dateOfBirthTimestamp = date_of_birth
+        ? Math.floor(date_of_birth.getTime() / 1000)
         : 0;
       const [response] = await fetch<SignResponse>(HttpMethod.POST, {
         path: `${AUTH_API_PATH}/signup`,
         payload: JSON.stringify({
-          firstName,
-          lastName,
+          first_name,
+          last_name,
           email,
-          dateOfBirth: dateOfBirthTimestamp,
+          date_of_birth: dateOfBirthTimestamp,
           password,
           confirmPassword,
         }),
@@ -214,10 +214,10 @@ export const useSignForm = (): SignForm => {
 
   const validateSignUpForm = useCallback(
     (
-      firstName: string,
-      lastName: string,
+      first_name: string,
+      last_name: string,
       email: string,
-      dateOfBirth: Date | undefined,
+      date_of_birth: Date | undefined,
       password: string,
       confirmPassword: string,
       termsChecked: boolean
@@ -232,17 +232,17 @@ export const useSignForm = (): SignForm => {
         isValid = false;
       }
 
-      if (firstName === '') {
+      if (first_name === '') {
         setFirstNameError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       }
 
-      if (lastName === '') {
+      if (last_name === '') {
         setLastNameError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       }
 
-      if (!dateOfBirth) {
+      if (!date_of_birth) {
         setDateOfBirthError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       }

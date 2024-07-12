@@ -1,5 +1,4 @@
 import classes from './NavBar.module.scss';
-import { Link, useNavigate } from 'react-router-dom';
 import ContextMenu, {
   ContextMenuOption,
 } from '../common/ContextMenu/ContextMenu';
@@ -7,31 +6,32 @@ import { useSignForm } from '../../hooks/useSignForm';
 import { useUser } from '../../contexts/userContext';
 import logo from '../../assets/logo.png';
 import { useMemo } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const NavBar = () => {
   const { user } = useUser();
   const { handleSignOut } = useSignForm();
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const USER_MENU_OPTIONS: ContextMenuOption[] = useMemo(
     () => [
       {
-        label: 'Friends',
-        action: () => navigate('/friends'),
+        label: <Link href="/friends">Friends</Link>,
       },
       {
         label: 'Sign out',
         action: () => handleSignOut(),
       },
     ],
-    [handleSignOut, navigate]
+    [handleSignOut]
   );
 
   return (
     <nav className={classes.navBar}>
       <div className={classes.content}>
-        <Link to="/" title="Home">
-          <img src={logo} alt="company logo" className={classes.logo} />
+        <Link href="/" title="Home">
+          <Image src={logo} alt="events manager" className={classes.logo} />
         </Link>
         <div className={classes.userMenu}>
           {user && (

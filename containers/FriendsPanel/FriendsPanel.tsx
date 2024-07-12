@@ -112,7 +112,7 @@ const FriendsPanel = () => {
       <h2>
         <SvgIcon id="icon-map" width={96} height={96} />
         <strong>
-          Hello, {user?.firstName} {user?.lastName}!
+          Hello, {user?.first_name} {user?.last_name}!
         </strong>
       </h2>
       <div className={classes.addFriendBox}>
