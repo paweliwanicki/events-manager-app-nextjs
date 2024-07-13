@@ -3,7 +3,7 @@ import EventsNavigation from '../../components/EventsNavigation/EventsNavigation
 import classes from './Dashboard.module.scss';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useState, useCallback, useEffect } from 'react';
-import { Event } from '../../types/Event';
+import { Event } from '../../models/Event';
 import AddEditEventModal from '../../components/AddEditEventModal/AddEditEventModal';
 import { useEvents } from '../../contexts/eventsContext';
 import RemoveEventModal from '../../components/EventsList/RemoveEventModal/RemoveEventModal';

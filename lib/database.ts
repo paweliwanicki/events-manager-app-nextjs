@@ -3,7 +3,6 @@ import sql from 'better-sqlite3';
 export const db = new sql('events_manager.db');
 
 export function initDb() {
-  console.log('init');
   db.exec(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY, 
@@ -11,6 +10,7 @@ export function initDb() {
       last_name TEXT NOT NULL,
       date_of_birth INTEGER NOT NULL,
       email TEXT NOT NULL,
+      is_admin BOOLEAN DEFAULT false,
       password TEXT NOT NULL,
       created_at INTEGER DEFAULT CURRENT_TIMESTAMP,
       modified_at INTEGER

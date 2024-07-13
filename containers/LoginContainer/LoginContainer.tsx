@@ -1,33 +1,44 @@
-import { useCallback, useState } from 'react';
-import SignUpForm from '../../components/SignUpForm/SignUpForm';
-import classes from './LoginContainer.module.scss';
-import SignInForm from '../../components/SignInForm/SignInForm';
-import { useSignForm } from '../../hooks/useSignForm';
-import { LoadingSpinner } from '../../components/common/LoadingSpinner/LoadingSpinner';
+import { useCallback, useState } from "react";
+import SignUpForm from "../../components/SignUpForm/SignUpForm";
+import classes from "./LoginContainer.module.scss";
+import SignInForm from "../../components/SignInForm/SignInForm";
+import { useSignForm } from "../../hooks/useSignForm";
+import { LoadingSpinner } from "../../components/common/LoadingSpinner/LoadingSpinner";
+import { useRouter } from "next/router";
+import { signIn } from "next-auth/react";
 
-type Form = 'SIGN_UP' | 'SIGN_IN';
+type Form = "SIGN_UP" | "SIGN_IN";
 
 const FORM_CHANGE_TEXT: Record<Form, Record<string, string>> = {
   SIGN_UP: {
-    label: 'Have already an account?',
-    btn: 'Sign in!',
+    label: "Have already an account?",
+    btn: "Sign in!",
   },
   SIGN_IN: {
-    label: 'Do not have an account yet?',
-    btn: 'Sign up!',
+    label: "Do not have an account yet?",
+    btn: "Sign up!",
   },
 } as const;
 
 const LoginContainer = () => {
-  const { handleSignIn, handleSignUp, isFetching } = useSignForm();
+  const router = useRouter();
+  const { handleSignUp, isFetching } = useSignForm();
 
-  const [activeForm, setActiveForm] = useState<Form>('SIGN_IN');
+  const [activeForm, setActiveForm] = useState<Form>("SIGN_IN");
 
   const handleSignInOnSubmit = useCallback(
-    (email: string, password: string) => {
-      handleSignIn(email, password);
+    async (email: string, password: string) => {
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (result?.ok) {
+        router.replace("/dashboard");
+      } 
     },
-    [handleSignIn]
+    [router]
   );
 
   const handleSignUpOnSubmit = useCallback(
@@ -47,23 +58,23 @@ const LoginContainer = () => {
         password,
         confirmPassword
       );
-      status && setActiveForm('SIGN_IN');
+      status && setActiveForm("SIGN_IN");
     },
     [handleSignUp]
   );
 
   const handleChangeSignForm = useCallback(() => {
-    setActiveForm(activeForm === 'SIGN_IN' ? 'SIGN_UP' : 'SIGN_IN');
+    setActiveForm(activeForm === "SIGN_IN" ? "SIGN_UP" : "SIGN_IN");
   }, [activeForm]);
 
   return (
     <div className={classes.loginContainer}>
       {isFetching && (
         <LoadingSpinner
-          message={activeForm === 'SIGN_UP' ? 'Signing up' : 'Signing in'}
+          message={activeForm === "SIGN_UP" ? "Signing up" : "Signing in"}
         />
       )}
-      {activeForm === 'SIGN_UP' ? (
+      {activeForm === "SIGN_UP" ? (
         <SignUpForm onSubmit={handleSignUpOnSubmit} />
       ) : (
         <SignInForm onSubmit={handleSignInOnSubmit} />

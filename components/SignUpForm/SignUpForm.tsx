@@ -83,7 +83,6 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [termsChecked, setTermsChecked] = useState<boolean>(false);
-
   const [showModal, setShowModal] = useState<boolean>(false);
   const [modalContent, setModalContent] = useState<ReactNode>();
 

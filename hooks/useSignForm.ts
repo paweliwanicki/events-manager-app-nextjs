@@ -1,34 +1,32 @@
-import { useCallback, useState, useMemo } from 'react';
-import { useApi } from './useApi';
-import { useNavigate } from 'react-router-dom';
-import { RoutePath } from '../enums/RoutePath';
-import { HttpMethod } from '../enums/HttpMethods';
-import { User } from '../models/User';
-import { jwtDecode } from 'jwt-decode';
-import { useUser } from '../contexts/userContext';
-import { useSnackBar } from '../contexts/snackBarContext';
-import { ResponseStatus } from '../enums/ResponseStatus';
+import { useCallback, useState, useMemo } from "react";
+import { useApi } from "./useApi";
+import { HttpMethod } from "../enums/HttpMethods";
+import { useSnackBar } from "../contexts/snackBarContext";
+import { ResponseStatus } from "../enums/ResponseStatus";
+import { signIn, signOut } from "next-auth/react";
 
 type InputError =
-  | 'EMPTY'
-  | 'WRONG_PASSWORD_FORMAT'
-  | 'PASSWORDS_NOT_MATCH'
-  | 'WRONG_EMAIL_FORMAT';
+  | "EMPTY"
+  | "WRONG_PASSWORD_FORMAT"
+  | "PASSWORDS_NOT_MATCH"
+  | "WRONG_EMAIL_FORMAT";
 
 type SignFormInput =
-  | 'EMAIL'
-  | 'FIRSTNAME'
-  | 'LASTNAME'
-  | 'DATE_OF_BIRTH'
-  | 'PASSWORD'
-  | 'CONFIRM_PASSWORD'
-  | 'TERMS';
+  | "EMAIL"
+  | "FIRSTNAME"
+  | "LASTNAME"
+  | "DATE_OF_BIRTH"
+  | "PASSWORD"
+  | "CONFIRM_PASSWORD"
+  | "TERMS";
 
-type SignResponse = {
-  message: string;
-  status: ResponseStatus;
-  jwtToken: string;
-};
+type SignResponse = [
+  { message: string },
+  {
+    message?: string;
+    statusCode: number;
+  }
+];
 
 type SignForm = {
   errors: {
@@ -61,7 +59,7 @@ type SignForm = {
     confirmPassword: string,
     termsChecked: boolean
   ) => boolean;
-  handleSignIn: (email: string, password: string) => Promise<void>;
+  handleSignIn: (email: string, password: string) => Promise<boolean>;
   handleSignUp: (
     first_name: string,
     last_name: string,
@@ -74,39 +72,33 @@ type SignForm = {
 };
 
 const INPUT_ERRORS_MESSAGES: Record<InputError, string> = {
-  EMPTY: 'Can not be empty!',
-  WRONG_PASSWORD_FORMAT: 'Password does not meet requirements!',
-  WRONG_EMAIL_FORMAT: 'E-mail address must be an valid email format!',
-  PASSWORDS_NOT_MATCH: 'Password and confirm password do not match!',
+  EMPTY: "Can not be empty!",
+  WRONG_PASSWORD_FORMAT: "Password does not meet requirements!",
+  WRONG_EMAIL_FORMAT: "E-mail address must be an valid email format!",
+  PASSWORDS_NOT_MATCH: "Password and confirm password do not match!",
 } as const;
 
 const EMAIL_REGEX = new RegExp(
-  '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,10}$',
-  'i'
+  "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,10}$",
+  "i"
 );
 const PASSWORD_REGEX = new RegExp(
-  '^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?[#?!@$%^&*-]).{8,}$'
+  "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?\\d)(?=.*?[#?!@$%^&*-]).{8,}$"
 );
 
-const AUTH_API_PATH = '/api/auth';
+const AUTH_API_PATH = "/api/auth";
 
 export const useSignForm = (): SignForm => {
-  // const navigate = useNavigate();
   const { fetch, isFetching } = useApi();
-  const { changeUser } = useUser();
-
-  const [emailError, setEmailError] = useState<string | undefined>();
-  const [firstNameError, setFirstNameError] = useState<string | undefined>();
-  const [lastNameError, setLastNameError] = useState<string | undefined>();
-  const [dateOfBirthError, setDateOfBirthError] = useState<
-    string | undefined
-  >();
-  const [passwordError, setPasswordError] = useState<string | undefined>();
-  const [confirmPasswordError, setConfirmPasswordError] = useState<
-    string | undefined
-  >();
-  const [termsCheckError, setTermsError] = useState<boolean>(false);
   const { handleShowSnackBar } = useSnackBar();
+
+  const [emailError, setEmailError] = useState<string>();
+  const [firstNameError, setFirstNameError] = useState<string>();
+  const [lastNameError, setLastNameError] = useState<string>();
+  const [dateOfBirthError, setDateOfBirthError] = useState<string>();
+  const [passwordError, setPasswordError] = useState<string>();
+  const [confirmPasswordError, setConfirmPasswordError] = useState<string>();
+  const [termsCheckError, setTermsError] = useState<boolean>(false);
 
   const [emailIsValidated, setEmailIsValidated] = useState<boolean>(false);
   const [firstNameIsValidated, setFirstNameIsValidated] =
@@ -122,42 +114,24 @@ export const useSignForm = (): SignForm => {
   const [termsCheckIsValidated, setTermsCheckIsValidated] =
     useState<boolean>(false);
 
-  const handleSignResponse = useCallback(
-    (response: SignResponse) => {
-      const { status, message, jwtToken } = response;
-      handleShowSnackBar(message, status);
-      if (status !== ResponseStatus.SUCCESS && jwtToken) {
-        return;
-      }
-      const user: User = jwtDecode(jwtToken);
-      if (user) {
-        changeUser(user);
-        // navigate(RoutePath.DASHBOARD);
-      }
-    },
-    [changeUser, handleShowSnackBar]
-  );
-  const handleSignUpResponse = useCallback(
-    (response: SignResponse) => {
-      const { status, message } = response;
-      handleShowSnackBar(message, status);
-      return status === ResponseStatus.SUCCESS;
-    },
-    [handleShowSnackBar]
-  );
+  const handleSignOut = () => {
+    signOut();
+  };
 
   const handleSignIn = useCallback(
     async (email: string, password: string) => {
-      const [response] = await fetch<SignResponse>(HttpMethod.POST, {
-        path: `${AUTH_API_PATH}/signin`,
-        payload: JSON.stringify({
-          email,
-          password,
-        }),
+      const response = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
       });
-      handleSignResponse(response);
+      if (!response?.ok) {
+        handleShowSnackBar("Wrong credentials!", ResponseStatus.ERROR);
+        return false;
+      }
+      return true;
     },
-    [fetch, handleSignResponse]
+    [handleShowSnackBar]
   );
 
   const handleSignUp = useCallback(
@@ -172,7 +146,7 @@ export const useSignForm = (): SignForm => {
       const dateOfBirthTimestamp = date_of_birth
         ? Math.floor(date_of_birth.getTime() / 1000)
         : 0;
-      const [response] = await fetch<SignResponse>(HttpMethod.POST, {
+      const response = await fetch<SignResponse>(HttpMethod.POST, {
         path: `${AUTH_API_PATH}/signup`,
         payload: JSON.stringify({
           first_name,
@@ -184,24 +158,25 @@ export const useSignForm = (): SignForm => {
         }),
       });
 
-      return handleSignUpResponse(response);
+      const [{ message }, { statusCode }] = response;
+      handleShowSnackBar(
+        message,
+        statusCode !== 201 ? ResponseStatus.ERROR : ResponseStatus.SUCCESS
+      );
+      return statusCode === 201;
     },
-    [fetch, handleSignUpResponse]
+    [handleShowSnackBar, fetch]
   );
-
-  const handleSignOut = useCallback(() => {
-    changeUser(undefined);
-  }, [changeUser]);
 
   const validateSignInForm = useCallback((email: string, password: string) => {
     let isValid = true;
 
-    if (email === '') {
+    if (email === "") {
       setEmailError(INPUT_ERRORS_MESSAGES.EMPTY);
       isValid = false;
     }
 
-    if (password === '') {
+    if (password === "") {
       setPasswordError(INPUT_ERRORS_MESSAGES.EMPTY);
       isValid = false;
     }
@@ -224,7 +199,7 @@ export const useSignForm = (): SignForm => {
     ) => {
       let isValid = true;
 
-      if (email === '') {
+      if (email === "") {
         setEmailError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       } else if (!EMAIL_REGEX.test(email)) {
@@ -232,12 +207,12 @@ export const useSignForm = (): SignForm => {
         isValid = false;
       }
 
-      if (first_name === '') {
+      if (first_name === "") {
         setFirstNameError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       }
 
-      if (last_name === '') {
+      if (last_name === "") {
         setLastNameError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       }
@@ -247,7 +222,7 @@ export const useSignForm = (): SignForm => {
         isValid = false;
       }
 
-      if (password === '') {
+      if (password === "") {
         setPasswordError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       } else if (!PASSWORD_REGEX.test(password)) {
@@ -255,7 +230,7 @@ export const useSignForm = (): SignForm => {
         isValid = false;
       }
 
-      if (confirmPassword === '') {
+      if (confirmPassword === "") {
         setConfirmPasswordError(INPUT_ERRORS_MESSAGES.EMPTY);
         isValid = false;
       } else if (confirmPassword !== password) {
@@ -295,7 +270,7 @@ export const useSignForm = (): SignForm => {
     setTermsCheckIsValidated(false);
   }, []);
 
-  const validationCleaners: Record<SignFormInput | 'ALL', () => void> =
+  const validationCleaners: Record<SignFormInput | "ALL", () => void> =
     useMemo(() => {
       return {
         EMAIL: () => {
@@ -335,7 +310,7 @@ export const useSignForm = (): SignForm => {
 
   const clearValidationAndError = useCallback(
     (input?: SignFormInput) => {
-      validationCleaners[input ?? 'ALL']();
+      validationCleaners[input ?? "ALL"]();
     },
     [validationCleaners]
   );
