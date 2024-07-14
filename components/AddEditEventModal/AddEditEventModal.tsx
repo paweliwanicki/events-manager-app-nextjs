@@ -1,23 +1,31 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
-import Input from '../common/Input/Input';
-import Modal from '../common/Modal/Modal';
-import classes from './AddEditEventModal.module.scss';
-import DatePicker from '../common/DatePickerInput/DatePickerInput';
-import Button from '../common/Button/Button';
-import TextArea from '../common/TextArea/TextArea';
+import { useCallback, useEffect, useRef, useState } from "react";
+import Input from "../common/Input/Input";
+import Modal from "../common/Modal/Modal";
+import classes from "./AddEditEventModal.module.scss";
+import DatePicker from "../common/DatePickerInput/DatePickerInput";
+import Button from "../common/Button/Button";
+import TextArea from "../common/TextArea/TextArea";
 import {
   EventLocation,
   useNewEventModal,
-} from '../../hooks/useAddEditEventModal';
-import { useMotionAnimate } from 'motion-hooks';
-import EventLocationMap from '../EventLocationMap/EventLocationMap';
-import { LoadingSpinner } from '../common/LoadingSpinner/LoadingSpinner';
-import { useSnackBar } from '../../contexts/snackBarContext';
-import Switch from '../common/Switch/Switch';
-import { Event } from '../../types/Event';
-import { useEvents } from '../../contexts/eventsContext';
-import { EventNavigationTab } from '../../enums/EventNavigationTab';
-import { ResponseStatus } from '../../enums/ResponseStatus';
+} from "../../hooks/useAddEditEventModal";
+import { useMotionAnimate } from "motion-hooks";
+import { LoadingSpinner } from "../common/LoadingSpinner/LoadingSpinner";
+import { useSnackBar } from "../../contexts/snackBarContext";
+import Switch from "../common/Switch/Switch";
+import { Event } from "../../models/Event";
+import { useEvents } from "../../contexts/eventsContext";
+import { EventNavigationTab } from "../../enums/EventNavigationTab";
+import { ResponseStatus } from "../../enums/ResponseStatus";
+import dynamic from "next/dynamic";
+
+const EventLocationMap = dynamic(
+  () => import("../EventLocationMap/EventLocationMap"),
+  {
+    loading: () => <p>A map is loading...</p>,
+    ssr: false,
+  }
+);
 
 type NewModalEventProps = {
   data: Event | undefined;
@@ -36,10 +44,10 @@ const AddEditEventModal = ({
   const { handleShowSnackBar } = useSnackBar();
   const { play: closeAnimation } = useMotionAnimate(
     `.${classes.newEventModal}`,
-    { top: '150%' },
+    { top: "150%" },
     {
       duration: 0.5,
-      easing: 'ease-in',
+      easing: "ease-in",
     }
   );
 
@@ -84,8 +92,8 @@ const AddEditEventModal = ({
       const eventDateTimestamp = eventDate
         ? Math.floor(eventDate?.getTime() / 1000)
         : 0;
-      const eventName = nameRef.current?.value ?? '';
-      const eventDescription = descriptionRef.current?.value ?? '';
+      const eventName = nameRef.current?.value ?? "";
+      const eventDescription = descriptionRef.current?.value ?? "";
 
       const locationDetails = {
         address: eventAddress,
@@ -116,12 +124,12 @@ const AddEditEventModal = ({
         onClose();
         getEvents(selectedTab);
         handleShowSnackBar(
-          `Event ${eventId ? 'updated ' : 'created'}  sucessfully!`,
+          `Event ${eventId ? "updated " : "created"}  sucessfully!`,
           ResponseStatus.SUCCESS
         );
       } else {
         handleShowSnackBar(
-          'Error occured during create an event!',
+          "Error occured during create an event!",
           ResponseStatus.ERROR
         );
       }
@@ -142,16 +150,16 @@ const AddEditEventModal = ({
   );
 
   const handleEventNameOnChange = useCallback(() => {
-    nameError && clearValidationAndError('NAME');
+    nameError && clearValidationAndError("NAME");
   }, [clearValidationAndError, nameError]);
 
   const handleEventDescriptionOnChange = useCallback(() => {
-    descriptionError && clearValidationAndError('DESCRIPTION');
+    descriptionError && clearValidationAndError("DESCRIPTION");
   }, [clearValidationAndError, descriptionError]);
 
   const handleEventDateOnChange = useCallback(
     (date: Date) => {
-      dateError && clearValidationAndError('EVENT_DATE');
+      dateError && clearValidationAndError("EVENT_DATE");
       setEventDate(date);
     },
     [clearValidationAndError, dateError]
@@ -161,7 +169,7 @@ const AddEditEventModal = ({
     (location: unknown, address: string) => {
       setEventLocation(location as EventLocation);
       setEventAddress(address);
-      locationError && clearValidationAndError('LOCATION');
+      locationError && clearValidationAndError("LOCATION");
     },
     [clearValidationAndError, locationError]
   );
@@ -171,8 +179,8 @@ const AddEditEventModal = ({
   }, []);
 
   const clearForm = useCallback(() => {
-    if (nameRef.current) nameRef.current.value = '';
-    if (descriptionRef.current) descriptionRef.current.value = '';
+    if (nameRef.current) nameRef.current.value = "";
+    if (descriptionRef.current) descriptionRef.current.value = "";
     setEventDate(undefined);
     setEventLocation(undefined);
     setEventAddress(undefined);

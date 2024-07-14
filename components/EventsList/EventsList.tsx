@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from 'react';
-import { Event } from '../../types/Event';
+import { Event } from '../../models/Event';
 import classes from './EventsList.module.scss';
 import { ContextMenuOption } from '../common/ContextMenu/ContextMenu';
 import { useUser } from '../../contexts/userContext';

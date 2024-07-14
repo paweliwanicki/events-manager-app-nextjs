@@ -11,24 +11,24 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
       <SnackBarProvider>
-        <Layout>
-          <Head>
-            <title>Events Manager App</title>
-            <meta
-              name="description"
-              content="Events manager app written in NextJS"
-            />
-            <meta
-              name="viewport"
-              content="initial-scale=1.0, width=device-width"
-            />
-          </Head>
-          {/* <UserProvider> */}
-          {/* <EventsProvider> */}
-          <Component {...pageProps} />
-          {/* </EventsProvider>
-      </UserProvider> */}
-        </Layout>
+        <UserProvider>
+          <Layout>
+            <Head>
+              <title>Events Manager App</title>
+              <meta
+                name="description"
+                content="Events manager app written in NextJS"
+              />
+              <meta
+                name="viewport"
+                content="initial-scale=1.0, width=device-width"
+              />
+            </Head>
+            <EventsProvider>
+              <Component {...pageProps} />
+            </EventsProvider>
+          </Layout>
+        </UserProvider>
       </SnackBarProvider>
     </SessionProvider>
   );

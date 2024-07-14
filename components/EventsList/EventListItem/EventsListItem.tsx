@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
-import { Event } from '../../../types/Event';
+import { Event } from '../../../models/Event';
 import classes from './EventsListItem.module.scss';
 import ContextMenu, {
   ContextMenuOption,

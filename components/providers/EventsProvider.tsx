@@ -1,11 +1,11 @@
 import { useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
-import { HttpMethod } from '../enums/HttpMethods';
-import { useApi } from '../hooks/useApi';
+import { useApi } from '../../hooks/useApi';
 import { EventsContext } from '../../contexts/eventsContext';
-import { Event } from '../types/Event';
+import { Event } from '../../models/Event';
 import { useUser } from '../../contexts/userContext';
-import { ResponseStatus } from '../enums/ResponseStatus';
-import { EventNavigationTab } from '../enums/EventNavigationTab';
+import { ResponseStatus } from '../../enums/ResponseStatus';
+import { EventNavigationTab } from '../../enums/EventNavigationTab';
+import { HttpMethod } from '@/enums/HttpMethods';
 
 export type GenericEventsResponse = {
   message: string;
@@ -74,7 +74,7 @@ export const EventsProvider = ({ children }: EventsProviderProps) => {
 
   useEffect(() => {
     if (user) {
-      getEvents(EventNavigationTab.My);
+      //getEvents(EventNavigationTab.My);
     }
   }, [user, getEvents]);
 

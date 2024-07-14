@@ -50,11 +50,7 @@ const Modal = ({
       className={`${classes.modal} ${classNames}`}
       overlayClassName={classes.overlay}
       onRequestClose={handleModalClose}
-      appElement={document.body}
       onAfterOpen={() => void openAnimation()}
-      parentSelector={() =>
-        document.getElementById('layout-container') as HTMLElement
-      }
     >
       <SvgIcon
         id="icon-close-dark"

@@ -3,7 +3,7 @@ import Modal from '../../common/Modal/Modal';
 import classes from './RemoveEventModal.module.scss';
 import { useMotionAnimate } from 'motion-hooks';
 import { LoadingSpinner } from '../../common/LoadingSpinner/LoadingSpinner';
-import { Event } from '../../../types/Event';
+import { Event } from '../../../models/Event';
 import Button from '../../common/Button/Button';
 import { useEvents } from '../../../contexts/eventsContext';
 import { useSnackBar } from '../../../contexts/snackBarContext';

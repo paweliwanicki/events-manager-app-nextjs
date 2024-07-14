@@ -5,7 +5,6 @@ import SignInForm from "../../components/SignInForm/SignInForm";
 import { useSignForm } from "../../hooks/useSignForm";
 import { LoadingSpinner } from "../../components/common/LoadingSpinner/LoadingSpinner";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
 
 type Form = "SIGN_UP" | "SIGN_IN";
 
@@ -22,23 +21,22 @@ const FORM_CHANGE_TEXT: Record<Form, Record<string, string>> = {
 
 const LoginContainer = () => {
   const router = useRouter();
-  const { handleSignUp, isFetching } = useSignForm();
+  const { handleSignIn, handleSignUp } = useSignForm();
 
   const [activeForm, setActiveForm] = useState<Form>("SIGN_IN");
+  const [isSigning, setIsSigning] = useState<boolean>(false);
 
   const handleSignInOnSubmit = useCallback(
     async (email: string, password: string) => {
-      const result = await signIn("credentials", {
-        redirect: false,
-        email,
-        password,
-      });
+      setIsSigning(true);
+      const loggedIn = await handleSignIn(email, password);
 
-      if (result?.ok) {
+      if (loggedIn) {
+        setIsSigning(false);
         router.replace("/dashboard");
-      } 
+      }
     },
-    [router]
+    [handleSignIn, router]
   );
 
   const handleSignUpOnSubmit = useCallback(
@@ -50,6 +48,7 @@ const LoginContainer = () => {
       password: string,
       confirmPassword: string
     ) => {
+      setIsSigning(true);
       const status = await handleSignUp(
         firstName,
         lastName,
@@ -58,6 +57,7 @@ const LoginContainer = () => {
         password,
         confirmPassword
       );
+      setIsSigning(false);
       status && setActiveForm("SIGN_IN");
     },
     [handleSignUp]
@@ -69,7 +69,7 @@ const LoginContainer = () => {
 
   return (
     <div className={classes.loginContainer}>
-      {isFetching && (
+      {isSigning && (
         <LoadingSpinner
           message={activeForm === "SIGN_UP" ? "Signing up" : "Signing in"}
         />

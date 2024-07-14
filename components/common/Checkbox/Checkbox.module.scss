@@ -1,4 +1,4 @@
-@use '../../../styles/variables.scss';
+@use "../../../styles/variables.scss";
 
 $background-color_1: #e8e8ea;
 $background-color_2: #d5d8f7;
@@ -83,10 +83,10 @@ label.checkbox {
         width: 20px;
 
         &:after {
-          left: 8px;
+          left: 7px;
           top: 4px;
-          width: 5px;
-          height: 10px;
+          width: 4px;
+          height: 8px;
         }
       }
 
@@ -119,7 +119,7 @@ label.checkbox {
 
       background-color: $background-color_1;
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         display: none;
       }

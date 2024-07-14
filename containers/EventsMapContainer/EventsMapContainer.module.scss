@@ -1,0 +1,13 @@
+@use '../../styles/variables.scss';
+
+.mapContainer {
+  flex-grow: 1;
+  height: 100%;
+  background-color: variables.$very-light-grey;
+
+  .markerMapPopup {
+    p {
+      margin: 5px;
+    }
+  }
+}

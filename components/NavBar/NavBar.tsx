@@ -12,7 +12,6 @@ import Image from 'next/image';
 const NavBar = () => {
   const { user } = useUser();
   const { handleSignOut } = useSignForm();
-  //const navigate = useNavigate();
 
   const USER_MENU_OPTIONS: ContextMenuOption[] = useMemo(
     () => [

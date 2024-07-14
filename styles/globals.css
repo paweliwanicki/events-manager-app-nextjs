@@ -1,3 +1,11 @@
+/* css custom reset */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -17,7 +25,7 @@ body {
   display: flex;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Kumbh Sans Regular', sans-serif;
+  font-family: "Kumbh Sans Regular", sans-serif;
 }
 
 #__next {

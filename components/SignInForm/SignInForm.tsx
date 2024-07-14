@@ -66,7 +66,7 @@ const SignInForm = ({ onSubmit }: SignInFormProps) => {
     <div className={classes.signInForm}>
       <h2>Sign In</h2>
       <h4>
-        Please log in to the application using your username and password.
+        Please log in to the application using your e-mail and password.
       </h4>
       <form noValidate onSubmit={handleFormOnSubmit}>
         <Input

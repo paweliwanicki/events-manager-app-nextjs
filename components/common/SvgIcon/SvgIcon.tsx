@@ -1,5 +1,4 @@
 import { useState, useEffect, useCallback } from 'react';
-//import svgSprite from '../../../assets/sprite.svg';
 import classes from './SvgIcon.module.scss';
 
 type SvgIconProps = {
@@ -60,7 +59,7 @@ const SvgIcon = ({
       onPointerDown={onMouseDown}
       onPointerUp={onMouseUp}
     >
-      <use href={`${`svgSprite`}#${id}`} />
+      <use href={`/sprite.svg#${id}`} />
     </svg>
   );
 };

@@ -13,7 +13,10 @@ import {
 import { useState, useEffect, useCallback } from 'react';
 import UserCurrentLocationMarker from '../UserCurrentLocationMarker/UserCurrentLocationMarker';
 import { LoadingSpinner } from '../common/LoadingSpinner/LoadingSpinner';
-import { Event } from '../../types/Event';
+import { Event } from '../../models/Event';
+import "leaflet/dist/leaflet.css"
+import "leaflet-defaulticon-compatibility"
+import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
 
 type EventLocationMarkerProps = {
   eventLocation?: EventLocation;

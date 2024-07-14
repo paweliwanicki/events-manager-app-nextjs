@@ -13,6 +13,7 @@
   transition: background-image linear 0.5s, background-color linear 0.5s;
   color: variables.$midnight;
   background-color: variables.$very-light-grey;
+  margin-block: 30px;
 
   h2 {
     text-transform: uppercase;

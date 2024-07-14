@@ -1,5 +1,5 @@
-import spinner from "./spinner.svg";
 import classes from "./LoadingSpinner.module.scss";
+import Image from "next/image";
 
 type LoadingSpinnerProps = {
   message?: string;
@@ -8,10 +8,12 @@ type LoadingSpinnerProps = {
 export const LoadingSpinner = ({ message }: LoadingSpinnerProps) => {
   return (
     <div className={classes.loadingSpinnerOverlay}>
-      <img
+      <Image
         className={classes.loadingSpinner}
-        src={spinner}
+        src="/spinner.svg"
         alt="loading spinner"
+        width={150}
+        height={150}
       />
       {message && <p>{message}</p>}
     </div>
