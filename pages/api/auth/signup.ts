@@ -24,17 +24,17 @@ export default async function handler(
   }
   const data = req.body;
   const {
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     email,
-    date_of_birth,
+    dateOfBirth,
     password,
     confirmPassword,
   } = data;
 
   if (
-    !first_name ||
-    !last_name ||
+    !firstName ||
+    !lastName ||
     !email ||
     !EMAIL_REGEX.test(email) ||
     !password ||
@@ -58,10 +58,10 @@ export default async function handler(
   const hashedPassword = await hashPasword(password);
 
  await createUser({
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     email,
-    date_of_birth,
+    dateOfBirth,
     password: hashedPassword,
   });
 

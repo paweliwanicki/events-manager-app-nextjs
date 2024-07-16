@@ -49,8 +49,8 @@ export const authOptions = {
       user: User;
     }) {
       if (user) {
-        token.first_name = user.first_name;
-        token.last_name = user.last_name;
+        token.firstName = user.firstName;
+        token.lastName = user.lastName;
         token.admin = user.admin;
       }
       return token;
@@ -64,13 +64,13 @@ export const authOptions = {
         sub: string;
       } & Partial<User>;
     }) {
-      const { sub, email, admin, first_name, last_name } = token;
+      const { sub, email, admin, firstName, lastName } = token;
       const user = {
         sub,
         email,
         admin,
-        first_name,
-        last_name,
+        firstName,
+        lastName,
       };
 
       session.user = user;

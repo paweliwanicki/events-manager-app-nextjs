@@ -1,5 +1,6 @@
-import { NewUserDto, User } from "@/models/User";
+import { User } from "@/models/User";
 import { db } from "./database";
+import { NewUserDto } from "@/dtos/ NewUserDto";
 
 export async function createUser(user: NewUserDto) {
   const stmt = db.prepare(`

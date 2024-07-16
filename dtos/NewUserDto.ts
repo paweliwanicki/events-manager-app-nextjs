@@ -1,9 +1,7 @@
-export type User = {
-  id: number;
+export type NewUserDto = {
   email: string;
   firstName: string;
   lastName: string;
   dateOfBirth: number;
-  is_admin: boolean;
   password: string;
-};
+}

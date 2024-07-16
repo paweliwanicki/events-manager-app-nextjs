@@ -36,10 +36,10 @@ const PRIVACY_STATEMENT: ReactNode = (
 
 type SignUpFormProps = {
   onSubmit: (
-    first_name: string,
-    last_name: string,
+    firstName: string,
+    lastName: string,
     email: string,
-    date_of_birth: Date,
+    dateOfBirth: Date,
     password: string,
     confirmPassword: string
   ) => void;
@@ -77,9 +77,9 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
   } = isValidated;
 
   const [email, setUsername] = useState<string>('');
-  const [first_name, setFirstname] = useState<string>('');
-  const [last_name, setLastname] = useState<string>('');
-  const [date_of_birth, setDateOfBirth] = useState<Date>();
+  const [firstName, setFirstname] = useState<string>('');
+  const [lastName, setLastname] = useState<string>('');
+  const [DateOfBirth, setDateOfBirth] = useState<Date>();
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [termsChecked, setTermsChecked] = useState<boolean>(false);
@@ -95,25 +95,25 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
   );
 
   const handleFirstNameOnChange = useCallback(
-    (first_name: string) => {
+    (firstName: string) => {
       firstNameIsValidated && clearValidationAndError('FIRSTNAME');
-      setFirstname(first_name);
+      setFirstname(firstName);
     },
     [firstNameIsValidated, clearValidationAndError]
   );
 
   const handleLastNameOnChange = useCallback(
-    (last_name: string) => {
+    (lastName: string) => {
       lastNameIsValidated && clearValidationAndError('LASTNAME');
-      setLastname(last_name);
+      setLastname(lastName);
     },
     [lastNameIsValidated, clearValidationAndError]
   );
 
   const handleDateOfBirthOnChange = useCallback(
-    (date_of_birth: Date) => {
+    (DateOfBirth: Date) => {
       dateOfBirthIsValidated && clearValidationAndError('DATE_OF_BIRTH');
-      setDateOfBirth(date_of_birth);
+      setDateOfBirth(DateOfBirth);
     },
     [dateOfBirthIsValidated, clearValidationAndError]
   );
@@ -147,10 +147,10 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
       event.preventDefault();
 
       const isValid = validateSignUpForm(
-        first_name,
-        last_name,
+        firstName,
+        lastName,
         email,
-        date_of_birth,
+        DateOfBirth,
         password,
         confirmPassword,
         termsChecked
@@ -161,19 +161,19 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
       }
 
       onSubmit(
-        first_name,
-        last_name,
+        firstName,
+        lastName,
         email,
-        date_of_birth as Date,
+        DateOfBirth as Date,
         password,
         confirmPassword
       );
     },
     [
-      first_name,
-      last_name,
+      firstName,
+      lastName,
       email,
-      date_of_birth,
+      DateOfBirth,
       password,
       confirmPassword,
       termsChecked,
@@ -212,7 +212,7 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
       <form noValidate onSubmit={handleFormOnSubmit}>
         <Input
           type="text"
-          id="first_name"
+          id="firstName"
           label={
             <span title="First name (min 3, max 25 characters)">
               &#9432; First name<span className={classes.required}>*</span>
@@ -228,7 +228,7 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
 
         <Input
           type="text"
-          id="last_name"
+          id="lastName"
           label={
             <span title="Last name (min 3, max 45 characters)">
               &#9432; Last name<span className={classes.required}>*</span>
@@ -265,7 +265,7 @@ const SignUpForm = ({ onSubmit }: SignUpFormProps) => {
               &#128197; Date of birth<span className={classes.required}>*</span>
             </span>
           }
-          selected={date_of_birth}
+          selected={DateOfBirth}
           isValidated={dateOfBirthIsValidated}
           onChange={handleDateOfBirthOnChange}
           errorText={dateOfBirthError}
