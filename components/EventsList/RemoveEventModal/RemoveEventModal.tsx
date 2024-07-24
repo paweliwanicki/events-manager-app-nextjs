@@ -46,7 +46,8 @@ const RemoveEventModal = ({
       return false;
     }
     const response = await removeEvent(id);
-    if (response?.status !== ResponseStatus.SUCCESS) {
+
+    if (response?.statusCode !== 200) {
       handleShowSnackBar(
         'Error during removing event has occured! Please try again.',
         ResponseStatus.ERROR

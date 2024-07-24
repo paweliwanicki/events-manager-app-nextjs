@@ -79,6 +79,21 @@
     cursor: pointer;
     border-radius: 6px;
 
+    &:disabled {
+      opacity: 0.4;
+    }
+
+    span {
+      &::after {
+        content: '...';
+        overflow: hidden;
+        display: inline-block;
+        vertical-align: bottom;
+        animation: ellipsis-dot 1s infinite 0.3s;
+        animation-fill-mode: forwards;
+      }
+    }
+
     &.join {
       color: variables.$valid;
     }

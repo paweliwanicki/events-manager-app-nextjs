@@ -48,14 +48,13 @@ const EventsList = ({
   const handleJoinEvent = useCallback(
     async (id: number) => {
       const response = await joinEvent(id);
-      if (response?.status !== ResponseStatus.SUCCESS) {
+      if (response?.statusCode !== 201) {
         handleShowSnackBar(
           'Error during joining to the event! Please try again.',
           ResponseStatus.ERROR
         );
         return false;
       }
-
       handleShowSnackBar(
         'Successfully join the event!',
         ResponseStatus.SUCCESS
@@ -69,7 +68,7 @@ const EventsList = ({
   const handleLeaveEvent = useCallback(
     async (id: number) => {
       const response = await leaveEvent(id);
-      if (response?.status !== ResponseStatus.SUCCESS) {
+      if (response?.statusCode !== 200) {
         handleShowSnackBar(
           'Error during leaving event! Please try again.',
           ResponseStatus.ERROR
@@ -108,7 +107,7 @@ const EventsList = ({
         ) : (
           data.map((event: Event) => {
             const showSettingsBtn =
-              user !== undefined && selectedTab === EventNavigationTab.My;
+              !!user && selectedTab === EventNavigationTab.MY;
             return (
               <EventsListItem
                 key={`event-list-item-${event.id}`}
@@ -119,6 +118,7 @@ const EventsList = ({
                 onLeaveEvent={handleLeaveEvent}
                 onSelectEvent={handleSelectEvent}
                 menuOptions={EVENT_MENU_OPTIONS}
+                isFetching={isFetching}
               />
             );
           })

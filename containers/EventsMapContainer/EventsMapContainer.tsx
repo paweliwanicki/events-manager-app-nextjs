@@ -1,11 +1,11 @@
-import UserCurrentLocationMarker from "@/components/UserCurrentLocationMarker/UserCurrentLocationMarker";
-import { Event } from "@/models/Event";
-import { ReactNode, useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import classes from "./EventsMapContainer.module.scss";
-import "leaflet/dist/leaflet.css";
-import "leaflet-defaulticon-compatibility";
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css";
+import UserCurrentLocationMarker from '@/components/UserCurrentLocationMarker/UserCurrentLocationMarker';
+import { Event } from '@/models/Event';
+import { ReactNode, useEffect, useRef, useState } from 'react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import classes from './EventsMapContainer.module.scss';
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
 type EventsMapContainerProps = {
   events?: Event[];
@@ -36,14 +36,15 @@ const EventsMapContainer = ({
   selectedEvent,
   onSelectEvent,
 }: EventsMapContainerProps) => {
-  const [map, setMap] = useState();
+  const [map, setMap] = useState<any>();
   return (
     <div className={classes.mapContainer}>
       <MapContainer
+        ref={setMap}
         center={center}
         zoom={13}
         scrollWheelZoom={true}
-        style={{ height: "100%", width: "100%" }}
+        style={{ height: '100%', width: '100%' }}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         {events?.map((event: Event) => {
@@ -76,7 +77,7 @@ const EventsMapContainer = ({
           );
         })}
         {children}
-        
+
         <UserCurrentLocationMarker />
         <DisplayEventPosition
           map={map}

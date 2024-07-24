@@ -15,5 +15,9 @@
     gap: 10px;
     height: 100%;
     overflow-y: auto;
+
+    + p {
+      text-align: center;
+    }
   }
 }

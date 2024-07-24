@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { Event } from '../types/Event';
+import type { Event } from '../models/Event';
 import { GenericEventsResponse } from '../components/providers/EventsProvider';
 import { EventNavigationTab } from '../enums/EventNavigationTab';
 

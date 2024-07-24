@@ -1,6 +1,6 @@
-import { User } from "@/models/User";
-import { db } from "./database";
-import { NewUserDto } from "@/dtos/ NewUserDto";
+import { User } from '@/models/User';
+import { db } from './database';
+import { NewUserDto } from '@/dtos/NewUserDto';
 
 export async function createUser(user: NewUserDto) {
   const stmt = db.prepare(`
@@ -8,17 +8,17 @@ export async function createUser(user: NewUserDto) {
       VALUES (?, ?, ?, ?, ?)`);
   await new Promise((resolve) => setTimeout(resolve, 1000));
   return stmt.run(
-    user.first_name,
-    user.last_name,
+    user.firstName,
+    user.lastName,
     user.email,
-    user.date_of_birth,
+    user.dateOfBirth,
     user.password
   );
 }
 
 export async function updateUser(updUser: Partial<User>) {
   const stmt = db.prepare(`
-    UPDATE users SET (${Object.keys(updUser).join(",")})
+    UPDATE users SET (${Object.keys(updUser).join(',')})
     VALUES (?, ?, ?, ?, ?) 
     WHERE id = ?`);
 
@@ -34,11 +34,11 @@ export async function deleteUser(userId: number) {
 }
 
 export async function getUsers(where?: string, maxNumber?: number) {
-  let limitClause = "";
-  let whereClause = "";
+  let limitClause = '';
+  let whereClause = '';
 
   if (maxNumber) {
-    limitClause = "LIMIT ?";
+    limitClause = 'LIMIT ?';
   }
 
   if (where) {
@@ -56,7 +56,15 @@ export async function getUsers(where?: string, maxNumber?: number) {
 
 export async function getUser(email: string) {
   const stmt = db.prepare(`
-    SELECT * FROM users 
+    SELECT 
+    users.id, 
+    users.email,
+    users.password, 
+    users.first_name as firstName, 
+    users.last_name as lastName, 
+    users.is_admin as isAdmin,
+    users.created_at as createdAt 
+    FROM users 
     WHERE email = ?
     LIMIT 1
   `);

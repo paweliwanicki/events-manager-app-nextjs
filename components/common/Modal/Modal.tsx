@@ -51,6 +51,7 @@ const Modal = ({
       overlayClassName={classes.overlay}
       onRequestClose={handleModalClose}
       onAfterOpen={() => void openAnimation()}
+      ariaHideApp={false}
     >
       <SvgIcon
         id="icon-close-dark"

@@ -1,7 +1,7 @@
-import { useState, ReactNode, useMemo, useCallback, useEffect } from "react";
-import { User } from "../../models/User";
-import { UserContext } from "../../contexts/userContext";
-import { useSession } from "next-auth/react";
+import { useState, ReactNode, useMemo, useCallback, useEffect } from 'react';
+import { User } from '../../models/User';
+import { UserContext } from '../../contexts/userContext';
+import { useSession } from 'next-auth/react';
 
 type UserProviderProps = {
   children: ReactNode;
@@ -24,10 +24,8 @@ export const UserProvider = ({ children }: UserProviderProps) => {
   );
 
   useEffect(() => {
-    if (session?.user) {
-      setUser(session.user as User);
-    }
-  }, [session]);
+    setUser(session?.user as User);
+  }, [session?.user]);
 
   return (
     <UserContext.Provider value={contextValue}>

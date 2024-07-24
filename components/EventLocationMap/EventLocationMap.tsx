@@ -14,9 +14,9 @@ import { useState, useEffect, useCallback } from 'react';
 import UserCurrentLocationMarker from '../UserCurrentLocationMarker/UserCurrentLocationMarker';
 import { LoadingSpinner } from '../common/LoadingSpinner/LoadingSpinner';
 import { Event } from '../../models/Event';
-import "leaflet/dist/leaflet.css"
-import "leaflet-defaulticon-compatibility"
-import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
+import 'leaflet/dist/leaflet.css';
+import 'leaflet-defaulticon-compatibility';
+import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
 type EventLocationMarkerProps = {
   eventLocation?: EventLocation;
@@ -77,11 +77,12 @@ const EventLocationMarker = ({
 
   useEffect(() => {
     if (!position) return;
-    if (!position.address) {
-      handleGetLocationDetails();
-    } else {
+    const { address } = position;
+    if (address) {
       setAddress(position.address);
+      return;
     }
+    handleGetLocationDetails();
   }, [position, handleGetLocationDetails]);
 
   return (

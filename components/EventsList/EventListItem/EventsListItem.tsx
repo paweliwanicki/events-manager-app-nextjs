@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
 import { Event } from '../../../models/Event';
 import classes from './EventsListItem.module.scss';
 import ContextMenu, {
@@ -6,6 +6,7 @@ import ContextMenu, {
 } from '../../common/ContextMenu/ContextMenu';
 
 type EventsListItemProps = {
+  isFetching: boolean;
   event: Event;
   menuOptions: ContextMenuOption[];
   showSettingsBtn: boolean;
@@ -15,8 +16,8 @@ type EventsListItemProps = {
     event: Event,
     listItemRef: React.RefObject<HTMLLIElement>
   ) => void;
-  onJoinEvent: (eventId: number) => void;
-  onLeaveEvent: (participationId: number) => void;
+  onJoinEvent: (eventId: number) => Promise<boolean>;
+  onLeaveEvent: (participationId: number) => Promise<boolean>;
 };
 
 const EventsListItem = ({
@@ -30,6 +31,8 @@ const EventsListItem = ({
 }: EventsListItemProps) => {
   const listItemRef = useRef<HTMLLIElement>(null);
 
+  const [joinBtnIsDisabled, setJoinBtnIsDisabled] = useState<boolean>(false);
+
   const handleEventOnClick = useCallback(
     (event: Event) => {
       onSelectEvent(event, listItemRef);
@@ -39,14 +42,18 @@ const EventsListItem = ({
 
   const handleJoinEvent = useCallback(
     async (id: number) => {
-      onJoinEvent(id);
+      setJoinBtnIsDisabled(true);
+      await onJoinEvent(id);
+      setJoinBtnIsDisabled(false);
     },
     [onJoinEvent]
   );
 
   const handleLeaveEvent = useCallback(
     async (id: number) => {
-      onLeaveEvent(id);
+      setJoinBtnIsDisabled(true);
+      await onLeaveEvent(id);
+      setJoinBtnIsDisabled(false);
     },
     [onLeaveEvent]
   );
@@ -56,6 +63,11 @@ const EventsListItem = ({
   }, [event]);
 
   const { participationId } = event;
+
+  let buttonText: ReactNode = participationId ? 'Leave' : 'Join';
+  if (joinBtnIsDisabled) {
+    buttonText = <span>{participationId ? 'Leaving' : 'Joining'}</span>;
+  }
   return (
     <li
       id={`event-li-${event.id}`}
@@ -84,8 +96,9 @@ const EventsListItem = ({
           className={`${classes.btnJoinEvent} ${
             participationId ? classes.leave : classes.join
           }`}
+          disabled={joinBtnIsDisabled}
         >
-          {participationId ? 'Leave' : 'Join'}
+          {buttonText}
         </button>
       )}
       <h4>{event.name}</h4>

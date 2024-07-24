@@ -1,6 +1,6 @@
 export enum EventNavigationTab {
-  My = "My",
-  Public = "Public",
-  Private = "Private",
-  Participation = "Participation",
+  MY = 'My',
+  PUBLIC = 'Public',
+  PRIVATE = 'Private',
+  PARTICIPATION = 'Participation',
 }

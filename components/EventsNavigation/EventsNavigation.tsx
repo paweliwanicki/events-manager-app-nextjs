@@ -1,8 +1,8 @@
-import { useCallback } from "react";
-import Button from "../common/Button/Button";
-import classes from "./EventsNavigation.module.scss";
-import { useEvents } from "../../contexts/eventsContext";
-import { EventNavigationTab } from "../../enums/EventNavigationTab";
+import { useCallback } from 'react';
+import Button from '../common/Button/Button';
+import classes from './EventsNavigation.module.scss';
+import { useEvents } from '../../contexts/eventsContext';
+import { EventNavigationTab } from '../../enums/EventNavigationTab';
 
 type EventsNavigationProps = {
   selectedTab: EventNavigationTab;
@@ -34,8 +34,8 @@ const EventsNavigation = ({
         {Object.entries(EventNavigationTab).map(([tab, label]) => (
           <li
             key={`event-${tab}`}
-            className={selectedTab === tab ? classes.active : ""}
-            onClick={() => handleGetEventsByType(tab as EventNavigationTab)}
+            className={selectedTab === label ? classes.active : ''}
+            onClick={() => handleGetEventsByType(label as EventNavigationTab)}
           >
             <span>{label}</span>
           </li>

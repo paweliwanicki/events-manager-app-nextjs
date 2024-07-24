@@ -1,16 +1,16 @@
-import EventsList from "../../components/EventsList/EventsList";
-import EventsNavigation from "../../components/EventsNavigation/EventsNavigation";
-import classes from "./Dashboard.module.scss";
-import { useState, useCallback } from "react";
-import { Event } from "../../models/Event";
-import AddEditEventModal from "../../components/AddEditEventModal/AddEditEventModal";
-import { useEvents } from "../../contexts/eventsContext";
-import RemoveEventModal from "../../components/EventsList/RemoveEventModal/RemoveEventModal";
-import { EventNavigationTab } from "../../enums/EventNavigationTab";
-import dynamic from "next/dynamic";
+import EventsList from '../../components/EventsList/EventsList';
+import EventsNavigation from '../../components/EventsNavigation/EventsNavigation';
+import classes from './Dashboard.module.scss';
+import { useState, useCallback } from 'react';
+import { Event } from '../../models/Event';
+import AddEditEventModal from '../../components/AddEditEventModal/AddEditEventModal';
+import { useEvents } from '../../contexts/eventsContext';
+import RemoveEventModal from '../../components/EventsList/RemoveEventModal/RemoveEventModal';
+import { EventNavigationTab } from '../../enums/EventNavigationTab';
+import dynamic from 'next/dynamic';
 
 const EventsMap = dynamic(
-  () => import("../EventsMapContainer/EventsMapContainer"),
+  () => import('../EventsMapContainer/EventsMapContainer'),
   {
     loading: () => <p>A map is loading...</p>,
     ssr: false,
@@ -27,15 +27,15 @@ const Dashboard = () => {
   const [addEditEventModalData, setAddEditEventModalData] = useState<Event>();
   const [selectedEvent, setSelectedEvent] = useState<Event>();
   const [selectedTab, setSelectedTab] = useState<EventNavigationTab>(
-    EventNavigationTab.My
+    EventNavigationTab.MY
   );
 
   const handleSelectEvent = useCallback((event: Event) => {
     setSelectedEvent(event);
     const { listItemRef } = event;
     listItemRef?.current?.scrollIntoView({
-      behavior: "smooth",
-      block: "center",
+      behavior: 'smooth',
+      block: 'center',
     });
   }, []);
 
@@ -57,9 +57,9 @@ const Dashboard = () => {
     handleShowAddEditEventModal();
   }, [selectedEvent, handleShowAddEditEventModal]);
 
-  const handleSelectTab = useCallback((event: EventNavigationTab) => {
+  const handleSelectTab = useCallback((tab: EventNavigationTab) => {
     setSelectedEvent(undefined);
-    setSelectedTab(event);
+    setSelectedTab(tab);
   }, []);
 
   return (
